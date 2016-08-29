@@ -81,6 +81,16 @@ module tsdn-port {
             enum unknown;
         }
     }
+    typedef slot-card-type {
+        type enumeration {
+            enum main;
+            enum papa;
+            enum xeia;
+            enum geia;
+            enum cesu;
+            enum psfu;
+        }
+    }
     
     grouping common-port {
     	leaf local-id {
@@ -114,6 +124,10 @@ module tsdn-port {
     		leaf index {
     			type string;
     		}
+    		leaf shelf-serial-number {
+    			type string;
+            	description "bar code of shelf.";
+    		}
     	}
     	container slot {
     		leaf type {
@@ -122,6 +136,30 @@ module tsdn-port {
     		leaf index {
     			type string;
     		}
+    		leaf slot-type {
+    			type slot-card-type;
+            	description "slot-type";
+    		}
+    		leaf equipped-slot-type {
+    			type slot-card-type;
+            	description "equipped-slot-type.";
+    		}
+    		leaf slot-enabler {
+    			type string;
+            	description "provision to act or deact of card.";
+    		}
+    		leaf maximum-port-number {
+    			type string;
+            	description "maximum number of port";
+    		}
+    		leaf available-port {
+    			type string;
+            	description "available number of port.";
+    		}
+    		leaf protection-role {
+    			type string;
+            	description "protection role. working or standby";
+    		}
     	}
     	container sub-slot {
     		leaf type {
@@ -129,6 +167,22 @@ module tsdn-port {
     		}
     		leaf index {
     			type string;
+    		}
+    		leaf slot-type {
+    			type slot-card-type;
+            	description "slot-type";
+    		}
+    		leaf slot-enabler {
+    			type string;
+            	description "provision to act or deact of card.";
+    		}
+    		leaf maximum-port-number {
+    			type string;
+            	description "maximum number of port";
+    		}
+    		leaf available-port {
+    			type string;
+            	description "available number of port.";
     		}
     	}
     	container port {
@@ -139,5 +193,23 @@ module tsdn-port {
     			type string;
     		}
     	}
+		leaf ip-address {
+			type string;
+		}
+		leaf mac-address {
+			type string;
+		}
+		leaf port-duplex {
+			type string;
+		}
+		leaf port-auto-negotiation {
+			type string;
+		}
+		leaf port-loopback {
+			type string;
+		}
+		leaf mtu-size {
+			type string;
+		}
     }
 }

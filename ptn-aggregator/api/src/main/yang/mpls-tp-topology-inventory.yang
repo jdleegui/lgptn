@@ -164,8 +164,12 @@ module mpls-tp-topology-inventory {
             type tport:port-status-type;
             description "The status of the port.";
         }
+        leaf link-domail {
+            type string;
+            description "Inter domain or intra domain.";
+        }
     }
-    
+
     grouping mpls-tp-link {
     
         leaf-list source-node-connector-mpls-if-ref {

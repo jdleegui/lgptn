@@ -90,5 +90,9 @@ module tsdn-node {
             type node-status-type;
             description "The status of the node.";
         }
+        leaf mac-address {
+            type string;
+            description "MAC address. (LGU)";
+        }
     }
 }
