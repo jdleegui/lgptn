@@ -239,15 +239,45 @@ tsdn:/tmp/SDK/tsdn_plugin_sample$tree
 tsdn:/tmp/SDK/tsdn_plugin_sample$
 
 ```
-## 1. Create project.
-- [APP CREATING GUIDE] ( https://github.com/opendaylight/docs/blob/master/manuals/developer-guide/src/main/asciidoc/developing-app.adoc )
-- [YANG GUIDE] ( https://wiki.onosproject.org/display/ONOS/YANG+utils#YANGutils-Namespace )
+### 3. Change sample to coweaver
+- Find character 'sample'
 ``` 
-mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -DarchetypeArtifactId=opendaylight-startup-archetype \
--DarchetypeRepository=https://nexus.opendaylight.org/content/repositories/public/ \
--DarchetypeCatalog=https://nexus.opendaylight.org/content/repositories/public/archetype-catalog.xml
+tsdn:/tmp/SDK$find . -name '*.java' | xargs grep 'sam'
+./tsdn_plugin_sample/src/main/java/lgup/tsdn/plugin/sample/datagen/ResponseTunnelDataGenerator.java:package lgup.tsdn.plugin.sample.datagen;
+./tsdn_plugin_sample/src/main/java/lgup/tsdn/plugin/sample/datagen/ResponsePWDataGenerator.java:package lgup.tsdn.plugin.sample.datagen;
+./tsdn_plugin_sample/src/main/java/lgup/tsdn/plugin/sample/datagen/CreateTunnelsDataGenerator.java:package lgup.tsdn.plugin.sample.datagen;
+./tsdn_plugin_sample/src/main/java/lgup/tsdn/plugin/sample/datagen/CreatePWsDataGenerator.java:package lgup.tsdn.plugin.sample.datagen;
+./tsdn_plugin_sample/src/main/java/lgup/tsdn/plugin/sample/TsdnRPCImpl.java:package lgup.tsdn.plugin.sample;
+./tsdn_plugin_sample/src/main/java/lgup/tsdn/plugin/sample/PluginActivator.java:package lgup.tsdn.plugin.sample;
+tsdn:/tmp/SDK$find . -name '*.xml' | xargs grep 'sam'
+./tsdn_plugin_sample/pom.xml:   <artifactId>tsdn-plugin-sample</artifactId>
+./tsdn_plugin_sample/pom.xml:   <Bundle-Name>tsdn_plugin_sample</Bundle-Name>
+./tsdn_plugin_sample/pom.xml:   <Bundle-Activator>lgup.tsdn.plugin.sample.PluginActivator</Bundle-Activator>
 ```
-
+- Replace them with 'coweaver'
+```
+tsdn:/tmp/SDK$ mv tsdn_plugin_sample/ tsdn_plugin_coweaver
+tsdn:/tmp/SDK$find . -name '*.java' | xargs grep 'sample' 
+./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/datagen/ResponseTunnelDataGenerator.java:package lgup.tsdn.plugin.sample.datagen;
+./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/datagen/ResponsePWDataGenerator.java:package lgup.tsdn.plugin.sample.datagen;
+./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/datagen/CreateTunnelsDataGenerator.java:package lgup.tsdn.plugin.sample.datagen;
+./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/datagen/CreatePWsDataGenerator.java:package lgup.tsdn.plugin.sample.datagen;
+./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/TsdnRPCImpl.java:package lgup.tsdn.plugin.sample;
+./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/PluginActivator.java:package lgup.tsdn.plugin.sample;
+tsdn:/tmp/SDK$sed -i 's/sample/coweaver/g' ./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/datagen/ResponseTunnelDataGenerator.java
+tsdn:/tmp/SDK$sed -i 's/sample/coweaver/g' ./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/datagen/ResponsePWDataGenerator.java
+tsdn:/tmp/SDK$sed -i 's/sample/coweaver/g' ./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/datagen/CreateTunnelsDataGenerator.java
+tsdn:/tmp/SDK$sed -i 's/sample/coweaver/g' ./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/datagen/CreatePWsDataGenerator.java
+tsdn:/tmp/SDK$sed -i 's/sample/coweaver/g' ./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/TsdnRPCImpl.java
+tsdn:/tmp/SDK$sed -i 's/sample/coweaver/g' ./tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/PluginActivator.java
+tsdn:/tmp/SDK$find . -name '*.xml' | xargs grep 'sample' 
+./tsdn_plugin_coweaver/pom.xml:	<artifactId>tsdn-plugin-sample</artifactId>
+./tsdn_plugin_coweaver/pom.xml:						<Bundle-Name>tsdn_plugin_sample</Bundle-Name>
+./tsdn_plugin_coweaver/pom.xml:						<Bundle-Activator>lgup.tsdn.plugin.sample.PluginActivator</Bundle-Activator>
+tsdn:/tmp/SDK$sed -i 's/sample/coweaver/g' ./tsdn_plugin_coweaver/pom.xml
+tsdn:/tmp/SDK$find . -name '*.xml' | xargs grep 'sample' 
+tsdn:/tmp/SDK$find . -name '*.java' | xargs grep 'sample' 
+```
 ## 2. Something changed slightly but huge, big effect when you compile your old project :(=
 
 - Library changed everyday 
