@@ -432,3 +432,157 @@ tsdn:/tmp/SDK/tsdn_plugin_coweaver$mvn clean install -DskipTests -Dcheckstyle.sk
 [INFO] ------------------------------------------------------------------------
 tsdn:/tmp/SDK/tsdn_plugin_coweaver$
 ```
+## 4. Launch in ODL
+### 4.1 RUN Opendaylight in OSGI based Apache Karaf
+```
+tsdn:~/workspace$rm -R distribution-karaf-0.4.4-Beryllium-SR4/
+tsdn:~/workspace$unzip ~/Downloads/distribution-karaf-0.4.4-Beryllium-SR4.zip
+  .....
+  inflating: distribution-karaf-0.4.4-Beryllium-SR4/bin/start.bat
+  inflating: distribution-karaf-0.4.4-Beryllium-SR4/bin/status.bat
+  inflating: distribution-karaf-0.4.4-Beryllium-SR4/bin/stop.bat
+tsdn:~/workspace$./distribution-karaf-0.4.4-Beryllium-SR4/bin/karaf
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=512m; support was removed in 8.0
+
+    ________                       ________                .__  .__       .__     __
+    \_____  \ ______   ____   ____ \______ \ _____  ___.__.|  | |__| ____ |  |___/  |_
+     /   |   \\____ \_/ __ \ /    \ |    |  \\__  \<   |  ||  | |  |/ ___\|  |  \   __\
+    /    |    \  |_> >  ___/|   |  \|    `   \/ __ \\___  ||  |_|  / /_/  >   Y  \  |
+    \_______  /   __/ \___  >___|  /_______  (____  / ____||____/__\___  /|___|  /__|
+            \/|__|        \/     \/        \/     \/\/            /_____/      \/
+
+
+Hit '<tab>' for a list of available commands
+and '[cmd] --help' for help on a specific command.
+Hit '<ctrl-d>' or type 'system:shutdown' or 'logout' to shutdown OpenDaylight.
+
+opendaylight-user@root>
+```
+### 4.2 OPEN log console
+```
+tsdn:~$ tail -F ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4/data/log/karaf.log
+```
+### 4.3 INSTALL JDBC and FTP library (optional. JDBC will not use anymore in the future)
+- [bundle:install mvn:commons-net/commons-net/3.3]
+- [feature:repo-add mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.8.0/xml/features]
+- [feature:install pax-jdbc-mariadb pax-jdbc-config]
+- [feature:install odl-mdsal-all odl-mdsal-binding odl-restconf-all odl-of-config-all odl-dlux-all webconsole]
+
+```
+tsdn:~/workspace$./distribution-karaf-0.4.4-Beryllium-SR4/bin/karaf
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=512m; support was removed in 8.0
+    ________                       ________                .__  .__       .__     __       
+    \_____  \ ______   ____   ____ \______ \ _____  ___.__.|  | |__| ____ |  |___/  |_     
+     /   |   \\____ \_/ __ \ /    \ |    |  \\__  \<   |  ||  | |  |/ ___\|  |  \   __\    
+    /    |    \  |_> >  ___/|   |  \|    `   \/ __ \\___  ||  |_|  / /_/  >   Y  \  |      
+    \_______  /   __/ \___  >___|  /_______  (____  / ____||____/__\___  /|___|  /__|      
+            \/|__|        \/     \/        \/     \/\/            /_____/      \/          
+
+Hit '<tab>' for a list of available commands
+and '[cmd] --help' for help on a specific command.
+Hit '<ctrl-d>' or type 'system:shutdown' or 'logout' to shutdown OpenDaylight.
+
+opendaylight-user@root>bundle:install mvn:commons-net/commons-net/3.3
+Bundle ID: 64
+opendaylight-user@root>feature:repo-add mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.8.0/xml/features
+Adding feature url mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.8.0/xml/features
+opendaylight-user@root>feature:install pax-jdbc-mariadb pax-jdbc-config
+opendaylight-user@root>feature:install odl-mdsal-all odl-mdsal-binding odl-restconf-all odl-of-config-all odl-dlux-all webconsole
+Refreshing bundles com.google.guava (70), org.jboss.netty (165), org.eclipse.persistence.core (127), org.eclipse.persistence.moxy (128)
+Refreshing bundles org.jboss.netty (165), io.netty.handler (134)
+opendaylight-user@root>
+```
+### 4.4 Edit your configuration 
+```
+jdlee@LeeJD:/tmp$ cat /home/jdlee/workspace/SDK/tsdn_plugin_sample/manger4ventor/lgup.plugin.manager.cfg
+plugins.rootDir=/home/jdlee/tsdn_plugins
+plugin.count=1
+plugin.1.id=7412
+plugin.1.provider.count=1
+plugin.1.provider.1.id=7412_1 # coweaver ID
+plugin.1.provider.1.url=192.168.123.168 # EMS server ID (It will be used as a FTP address in the future)
+plugin.1.provider.1.userName=admin
+plugin.1.provider.1.password=admin
+jdlee@LeeJD:/tmp$
+
+```
+### 4.5 Copy required (Keep copy order. Copy slowly in MAX OS X or in Windows. The launching order is important factor.)
+```
+cp tsdn_plugin_api/target/tsdn-plugin-api-0.7.3.jar ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4/deploy/
+cp tsdn_plugin_sample/manger4ventor/tsdn-plugin-manager-base-0.7.3.jar ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4/deploy/
+cp tsdn_plugin_sample/manger4ventor/tsdn-plugin-manager4vendor-0.7.3.jar ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4/deploy/
+cp tsdn_plugin_sample/manger4ventor/lgup.plugin.manager.cfg ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4/etc/
+cp tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.7.3.jar ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4/deploy/
+```
+### 4.6 Checkout activation order
+```
+310 | Active   |  80 | 0.3.4.Beryllium-SR4                | dlux.yangvisualizer
+311 | Resolved |  30 | 3.0.3                              | Apache Karaf :: Web Console :: Branding, Hosts: 312
+312 | Active   |  30 | 3.0.3                              | Apache Karaf :: Web Console :: Console, Fragments: 311
+313 | Active   |  30 | 3.0.3                              | Apache Karaf :: Web Console :: Instance Plugin
+314 | Active   |  30 | 3.0.3                              | Apache Karaf :: Web Console :: Features Plugin
+315 | Active   |  30 | 3.0.3                              | Apache Karaf :: Web Console :: Gogo Plugin
+316 | Active   |  30 | 3.0.3                              | Apache Karaf :: Web Console :: HTTP Plugin
+317 | Active   |  80 | 0.7.3                              | tsdn_plugin_api
+318 | Active   |  80 | 0.7.3                              | tsdn_plugin_manager_base
+319 | Active   |  80 | 0.7.3                              | tsdn_plugin_manager4vendor
+320 | Active   |  80 | 0.7.3                              | tsdn_plugin_coweaver
+opendaylight-user@root>
+```
+### 4.7 Check ODL web 
+```
+opendaylight-user@root>
+jdlee@LeeJD:/tmp$  wget -O - http://localhost:8181/index.html#/login
+--2017-03-17 15:52:00--  http://localhost:8181/index.html
+Resolving localhost (localhost)... 127.0.0.1
+Connecting to localhost (localhost)|127.0.0.1|:8181... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2667 (2.6K) [text/html]
+Saving to: ‘STDOUT’
+
+-                                                            0%[                                                                                                                                       ]       0  --.-KB/s               <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OpenDaylight Dlux</title>
+
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript">
+var module = ['angular','ocLazyLoad','angular-ui-router','angular-translate', 'angular-sanitize', 'angular-translate-loader-static-files', 'angular-translate-loader-partial', 'angular-css-injector'];
+var deps = ['common/config/env.module','app/core/core.module','common/login/login.module','common/authentification/auth.module','common/navigation/navigation.module','common/topbar/topbar.module','common/general/common.general.module','app/topology/topology.module','app/node/nodes.module','app/yangui/main','common/yangutils/yangutils.module','common/sigmatopology/sigmatopology.module','app/yangvisualizer/yangvisualizer.module','common/layout/layout.module'];
+var e = ['oc.lazyLoad', 'ui.router', 'pascalprecht.translate', 'ngSanitize', 'angular.css.injector', 'app','app.core','app.common.login','app.common.auth','app.common.nav','app.common.topbar','app.common.general','app.topology','app.nodes','app.yangui','app.common.yangUtils','app.common.sigmatopology','app.yangvisualizer','app.common.layout'];
+        // global variables
+
+    </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- compiled CSS -->
+    <link rel="stylesheet" type="text/css" href="vendor/ng-grid/ng-grid.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/select2-bootstrap-css/select2-bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/footable/css/footable.core.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/footable/css/footable.standalone.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/vis/dist/vis.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/ng-slider/dist/css/ng-slider.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/opendaylight-dlux-0.2.0.css" />
+    <link rel="stylesheet" href="assets/css/sb-admin.css" />
+
+    <script type="text/javascript" data-main="src/main.js" src="vendor/requirejs/require.js"></script>
+
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <!-- the font-awesome is different from the 'official' one -->
+
+    <!-- application CSS -->
+  </head>
+
+  <body class="skin-3">
+  <div ui-view="mainContent"></div>
+  </body>
+</html>
+```
