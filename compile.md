@@ -14,7 +14,7 @@ wget "http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b
 wget "https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/0.4.4-Beryllium-SR4/distribution-karaf-0.4.4-Beryllium-SR4.zip"
 ```
 ## 2. Download SDK
-- [SVN:http://223.171.37.1:57080/svn/tsdn/tsdn.pluginsdk]
+- [SVN] : http://223.171.37.1:57080/svn/tsdn/tsdn.pluginsdk
 ```
 tsdn:/tmp$svn list http://223.171.37.1:57080/svn/tsdn/tsdn.pluginsdk
 tsdn_plugin_api/
@@ -175,14 +175,69 @@ tsdn:/tmp/SDK$tree
 tsdn:/tmp/SDK$
 
 ```
-- [GITHUB] : Upload to github if you want.
+- [Customize]
+### 1. Remove old version
 ```
-echo "# lgptn" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/jdleegui/lgptn.git
-git push -u origin master
+tsdn:/tmp/SDK$cd tsdn_plugin_sample/
+tsdn:/tmp/SDK/tsdn_plugin_sample$tree
+.
+├── manger4ventor
+│   ├── lgup.plugin.manager.cfg.sample
+│   ├── tsdn-plugin-manager4vendor-0.7.0.jar # --> remove
+│   ├── tsdn-plugin-manager4vendor-0.7.1.jar # --> remove
+│   ├── tsdn-plugin-manager4vendor-0.7.2.jar # --> remove
+│   ├── tsdn-plugin-manager4vendor-0.7.3.jar
+│   ├── tsdn-plugin-manager-base-0.7.0.jar   # --> remove
+│   ├── tsdn-plugin-manager-base-0.7.1.jar   # --> remove
+│   ├── tsdn-plugin-manager-base-0.7.2.jar   # --> remove
+│   └── tsdn-plugin-manager-base-0.7.3.jar
+├── pom.xml
+└── src
+    └── main
+        └── java
+            └── lgup
+                └── tsdn
+                    └── plugin
+                        └── sample
+                            ├── datagen
+                            │   ├── CreatePWsDataGenerator.java       ## example 
+                            │   ├── CreateTunnelsDataGenerator.java   ## example 
+                            │   ├── ResponsePWDataGenerator.java      ## example 
+                            │   └── ResponseTunnelDataGenerator.java  ## example 
+                            ├── PluginActivator.java
+                            └── TsdnRPCImpl.java
+
+9 directories, 16 files
+tsdn:/tmp/SDK/tsdn_plugin_sample$
+```
+### 2. Check essential file.
+##### 2.1. lgup.plugin.manager.cfg.sample : config file
+##### 2.2. tsdn-plugin-manager4vendor-0.7.3.jar : generated stuff to interface with vendor (google API)
+##### 2.3. tsdn-plugin-manager-base-0.7.3.jar   : generated stuff from YANG model        
+##### 2.4. PluginActivator.java                 : default caller
+##### 2.5. TsdnRPCImpl.java                     : main interface
+
+```
+tsdn:/tmp/SDK/tsdn_plugin_sample$tree
+.
+├── manger4ventor
+│   ├── lgup.plugin.manager.cfg.sample                 # 1. config file
+│   ├── tsdn-plugin-manager4vendor-0.7.3.jar           # 2. vendor interface caller jar file
+│   └── tsdn-plugin-manager-base-0.7.3.jar             # 3. MD-SAL base
+├── pom.xml
+└── src
+    └── main
+        └── java
+            └── lgup
+                └── tsdn
+                    └── plugin
+                        └── sample
+                            ├── PluginActivator.java   # 4. plugin activator
+                            └── TsdnRPCImpl.java       # 5. main RPC caller
+
+9 directories, 16 files
+tsdn:/tmp/SDK/tsdn_plugin_sample$
+
 ```
 ## 1. Create project.
 - [APP CREATING GUIDE] ( https://github.com/opendaylight/docs/blob/master/manuals/developer-guide/src/main/asciidoc/developing-app.adoc )
