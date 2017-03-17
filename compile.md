@@ -20,8 +20,7 @@ tsdn:/tmp$svn list http://223.171.37.1:57080/svn/tsdn/tsdn.pluginsdk
 tsdn_plugin_api/
 tsdn_plugin_sample/
 tsdn:/tmp$svn co http://223.171.37.1:57080/svn/tsdn/tsdn.pluginsdk SDK
-A    SDK/tsdn_plugin_sample
-A    SDK/tsdn_plugin_sample/src
+A    SDK/tsdn_plugin_sampleA    SDK/tsdn_plugin_sample/src
 ...
 A    SDK/tsdn_plugin_api/src/main/java/lgup/tsdn/plugin/spi/TsdnRPC.java
 A    SDK/tsdn_plugin_api/src/main/java/lgup/tsdn/plugin/util/DeviceRegistry.java
@@ -277,7 +276,159 @@ tsdn:/tmp/SDK$find . -name '*.xml' | xargs grep 'sample'
 tsdn:/tmp/SDK$sed -i 's/sample/coweaver/g' ./tsdn_plugin_coweaver/pom.xml
 tsdn:/tmp/SDK$find . -name '*.xml' | xargs grep 'sample' 
 tsdn:/tmp/SDK$find . -name '*.java' | xargs grep 'sample' 
+tsdn:/tmp/SDK$mv tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/sample/ tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/coweaver
 ```
-## 2. Something changed slightly but huge, big effect when you compile your old project :(=
+## 3. Compile API and customized java file.
 
-- Library changed everyday 
+- Compile API
+```
+tsdn:/tmp/SDK/tsdn_plugin_api$mvn clean install -DskipTests -Dcheckstyle.skip=true
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tsdn-plugin-api 0.7.3
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ tsdn-plugin-api ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.4:enforce (enforce-maven) @ tsdn-plugin-api ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:prepare-agent (pre-unit-test) @ tsdn-plugin-api ---
+[INFO] argLine set to -javaagent:/home/jdlee/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/tmp/SDK/tsdn_plugin_api/target/code-coverage/jacoco.exec,excludes=**/gen/**:**/generated-sources/**:**/yang-gen/**:**/pax/**
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (check-license) @ tsdn-plugin-api ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (default) @ tsdn-plugin-api ---
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.10:unpack (unpack-license) @ tsdn-plugin-api ---
+[INFO] Configured Artifact: org.opendaylight.odlparent:odl-license:0.0.5-Beryllium-SR4:jar
+[INFO] Unpacking /home/jdlee/.m2/repository/org/opendaylight/odlparent/odl-license/0.0.5-Beryllium-SR4/odl-license-0.0.5-Beryllium-SR4.jar to /tmp/SDK/tsdn_plugin_api/target/classes with includes "" and excludes "META-INF/**"
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tsdn-plugin-api ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /tmp/SDK/tsdn_plugin_api/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ tsdn-plugin-api ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 90 source files to /tmp/SDK/tsdn_plugin_api/target/classes
+[WARNING] /tmp/SDK/tsdn_plugin_api/src/main/java/lgup/tsdn/plugin/util/PluginApiUtils.java: /tmp/SDK/tsdn_plugin_api/src/main/java/lgup/tsdn/plugin/util/PluginApiUtils.java uses unchecked or unsafe operations.
+[WARNING] /tmp/SDK/tsdn_plugin_api/src/main/java/lgup/tsdn/plugin/util/PluginApiUtils.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ tsdn-plugin-api ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /tmp/SDK/tsdn_plugin_api/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ tsdn-plugin-api ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /tmp/SDK/tsdn_plugin_api/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ tsdn-plugin-api ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-bundle-plugin:3.0.0:bundle (default-bundle) @ tsdn-plugin-api ---
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.10.3:jar (attach-javadocs) @ tsdn-plugin-api ---
+[INFO] 
+2 warnings
+[WARNING] Javadoc Warnings
+[WARNING] /tmp/SDK/tsdn_plugin_api/src/main/java/lgup/tsdn/plugin/model/ElementElementConnectorId.java:30: warning - @return tag has no arguments.
+[WARNING] /tmp/SDK/tsdn_plugin_api/src/main/java/lgup/tsdn/plugin/model/ElementElementConnectorId.java:37: warning - @return tag has no arguments.
+[INFO] Building jar: /tmp/SDK/tsdn_plugin_api/target/tsdn-plugin-api-0.7.3-javadoc.jar
+[INFO] 
+[INFO] --- maven-source-plugin:3.0.0:jar-no-fork (attach-sources) @ tsdn-plugin-api ---
+[INFO] Building jar: /tmp/SDK/tsdn_plugin_api/target/tsdn-plugin-api-0.7.3-sources.jar
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:report (post-unit-test) @ tsdn-plugin-api ---
+[INFO] Skipping JaCoCo execution due to missing execution data file:/tmp/SDK/tsdn_plugin_api/target/code-coverage/jacoco.exec
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ tsdn-plugin-api ---
+[INFO] Installing /tmp/SDK/tsdn_plugin_api/target/tsdn-plugin-api-0.7.3.jar to /home/jdlee/.m2/repository/lgup/tsdn/plugin/tsdn-plugin-api/0.7.3/tsdn-plugin-api-0.7.3.jar
+[INFO] Installing /tmp/SDK/tsdn_plugin_api/pom.xml to /home/jdlee/.m2/repository/lgup/tsdn/plugin/tsdn-plugin-api/0.7.3/tsdn-plugin-api-0.7.3.pom
+[INFO] Installing /tmp/SDK/tsdn_plugin_api/target/tsdn-plugin-api-0.7.3-javadoc.jar to /home/jdlee/.m2/repository/lgup/tsdn/plugin/tsdn-plugin-api/0.7.3/tsdn-plugin-api-0.7.3-javadoc.jar
+[INFO] Installing /tmp/SDK/tsdn_plugin_api/target/tsdn-plugin-api-0.7.3-sources.jar to /home/jdlee/.m2/repository/lgup/tsdn/plugin/tsdn-plugin-api/0.7.3/tsdn-plugin-api-0.7.3-sources.jar
+[INFO] 
+[INFO] --- maven-bundle-plugin:3.0.0:install (default-install) @ tsdn-plugin-api ---
+[INFO] Installing lgup/tsdn/plugin/tsdn-plugin-api/0.7.3/tsdn-plugin-api-0.7.3.jar
+[INFO] Writing OBR metadata
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6.645 s
+[INFO] Finished at: 2017-03-17T15:11:42+09:00
+[INFO] Final Memory: 52M/704M
+[INFO] ------------------------------------------------------------------------
+tsdn:/tmp/SDK/tsdn_plugin_api$
+```
+- Compile customized project
+```
+tsdn:/tmp/SDK/tsdn_plugin_coweaver$mvn clean install -DskipTests -Dcheckstyle.skip=true
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tsdn-plugin-coweaver 0.7.3
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ tsdn-plugin-coweaver ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.4:enforce (enforce-maven) @ tsdn-plugin-coweaver ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:prepare-agent (pre-unit-test) @ tsdn-plugin-coweaver ---
+[INFO] argLine set to -javaagent:/home/jdlee/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/tmp/SDK/tsdn_plugin_coweaver/target/code-coverage/jacoco.exec,excludes=**/gen/**:**/generated-sources/**:**/yang-gen/**:**/pax/**
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (check-license) @ tsdn-plugin-coweaver ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (default) @ tsdn-plugin-coweaver ---
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.10:unpack (unpack-license) @ tsdn-plugin-coweaver ---
+[INFO] Configured Artifact: org.opendaylight.odlparent:odl-license:0.0.5-Beryllium-SR4:jar
+[INFO] Unpacking /home/jdlee/.m2/repository/org/opendaylight/odlparent/odl-license/0.0.5-Beryllium-SR4/odl-license-0.0.5-Beryllium-SR4.jar to /tmp/SDK/tsdn_plugin_coweaver/target/classes with includes "" and excludes "META-INF/**"
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ tsdn-plugin-coweaver ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /tmp/SDK/tsdn_plugin_coweaver/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ tsdn-plugin-coweaver ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 6 source files to /tmp/SDK/tsdn_plugin_coweaver/target/classes
+[WARNING] /tmp/SDK/tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/coweaver/datagen/CreateTunnelsDataGenerator.java: Some input files use unchecked or unsafe operations.
+[WARNING] /tmp/SDK/tsdn_plugin_coweaver/src/main/java/lgup/tsdn/plugin/coweaver/datagen/CreateTunnelsDataGenerator.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ tsdn-plugin-coweaver ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /tmp/SDK/tsdn_plugin_coweaver/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ tsdn-plugin-coweaver ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ tsdn-plugin-coweaver ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-bundle-plugin:3.0.0:bundle (default-bundle) @ tsdn-plugin-coweaver ---
+[INFO] 
+[INFO] --- maven-javadoc-plugin:2.10.3:jar (attach-javadocs) @ tsdn-plugin-coweaver ---
+[INFO] Building jar: /tmp/SDK/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.7.3-javadoc.jar
+[INFO] 
+[INFO] --- maven-source-plugin:3.0.0:jar-no-fork (attach-sources) @ tsdn-plugin-coweaver ---
+[INFO] Building jar: /tmp/SDK/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.7.3-sources.jar
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:report (post-unit-test) @ tsdn-plugin-coweaver ---
+[INFO] Skipping JaCoCo execution due to missing execution data file:/tmp/SDK/tsdn_plugin_coweaver/target/code-coverage/jacoco.exec
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ tsdn-plugin-coweaver ---
+[INFO] Installing /tmp/SDK/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.7.3.jar to /home/jdlee/.m2/repository/lgup/tsdn/plugin/tsdn-plugin-coweaver/0.7.3/tsdn-plugin-coweaver-0.7.3.jar
+[INFO] Installing /tmp/SDK/tsdn_plugin_coweaver/pom.xml to /home/jdlee/.m2/repository/lgup/tsdn/plugin/tsdn-plugin-coweaver/0.7.3/tsdn-plugin-coweaver-0.7.3.pom
+[INFO] Installing /tmp/SDK/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.7.3-javadoc.jar to /home/jdlee/.m2/repository/lgup/tsdn/plugin/tsdn-plugin-coweaver/0.7.3/tsdn-plugin-coweaver-0.7.3-javadoc.jar
+[INFO] Installing /tmp/SDK/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.7.3-sources.jar to /home/jdlee/.m2/repository/lgup/tsdn/plugin/tsdn-plugin-coweaver/0.7.3/tsdn-plugin-coweaver-0.7.3-sources.jar
+[INFO] 
+[INFO] --- maven-bundle-plugin:3.0.0:install (default-install) @ tsdn-plugin-coweaver ---
+[INFO] Installing lgup/tsdn/plugin/tsdn-plugin-coweaver/0.7.3/tsdn-plugin-coweaver-0.7.3.jar
+[INFO] Writing OBR metadata
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 5.002 s
+[INFO] Finished at: 2017-03-17T15:18:47+09:00
+[INFO] Final Memory: 52M/685M
+[INFO] ------------------------------------------------------------------------
+tsdn:/tmp/SDK/tsdn_plugin_coweaver$
+```
