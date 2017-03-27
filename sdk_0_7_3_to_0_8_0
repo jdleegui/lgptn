@@ -34,6 +34,8 @@ Checked out revision 1059.
 tsdn:/tmp$cd SDK
 tsdn:/tmp/SDK$tree
 .
+tsdn:~/workspace/CSU/SDK_0_8_0$ tree
+.
 ├── tsdn_plugin_api
 │   ├── device_registry.txt
 │   ├── pom.xml
@@ -62,6 +64,7 @@ tsdn:/tmp/SDK$tree
 │       │                   │   │   ├── NetworkType.java
 │       │                   │   │   ├── NodeStatusType.java
 │       │                   │   │   ├── NodeType.java
+│       │                   │   │   ├── OamIntervalTimeType.java
 │       │                   │   │   ├── OamType.java
 │       │                   │   │   ├── ObjectType.java
 │       │                   │   │   ├── OnOffType.java
@@ -70,6 +73,7 @@ tsdn:/tmp/SDK$tree
 │       │                   │   │   ├── PortDuplexType.java
 │       │                   │   │   ├── PortLoopbackStatusType.java
 │       │                   │   │   ├── PortRoleType.java
+│       │                   │   │   ├── PortTaggedType.java
 │       │                   │   │   ├── PortType.java
 │       │                   │   │   ├── PwId.java
 │       │                   │   │   ├── PwType.java
@@ -87,6 +91,7 @@ tsdn:/tmp/SDK$tree
 │       │                   │   │   ├── PathParamBuilder.java
 │       │                   │   │   ├── PluginIDBuilder.java
 │       │                   │   │   ├── PortConstraintBuilder.java
+│       │                   │   │   ├── PortConstraintPWBuilder.java
 │       │                   │   │   ├── ProviderIDBuilder.java
 │       │                   │   │   ├── ProviderInfoBuilder.java
 │       │                   │   │   ├── PWQosBuilder.java
@@ -115,6 +120,7 @@ tsdn:/tmp/SDK$tree
 │       │                   │   │   └── TsdnTunnelParamsImpl.java
 │       │                   │   ├── OAMParams.java
 │       │                   │   ├── PortConstraint.java
+│       │                   │   ├── PortConstraintPW.java
 │       │                   │   ├── PWQos.java
 │       │                   │   ├── TrafficQos.java
 │       │                   │   ├── Transit.java
@@ -134,6 +140,7 @@ tsdn:/tmp/SDK$tree
 │       │                   │   └── TunnelQos.java
 │       │                   ├── spi
 │       │                   │   ├── PluginListener.java
+│       │                   │   ├── PluginLogLevel.java
 │       │                   │   └── TsdnRPC.java
 │       │                   └── util
 │       │                       ├── DeviceRegistry.java
@@ -150,79 +157,43 @@ tsdn:/tmp/SDK$tree
 │                               └── IDTest.java
 └── tsdn_plugin_sample
     ├── manger4ventor
+    │   ├── lgup.plugin.manager.cfg
     │   ├── lgup.plugin.manager.cfg.sample
     │   ├── tsdn-plugin-manager4vendor-0.7.0.jar
     │   ├── tsdn-plugin-manager4vendor-0.7.1.jar
     │   ├── tsdn-plugin-manager4vendor-0.7.2.jar
     │   ├── tsdn-plugin-manager4vendor-0.7.3.jar
+    │   ├── tsdn-plugin-manager4vendor-0.8.0.jar
     │   ├── tsdn-plugin-manager-base-0.7.0.jar
     │   ├── tsdn-plugin-manager-base-0.7.1.jar
     │   ├── tsdn-plugin-manager-base-0.7.2.jar
-    │   └── tsdn-plugin-manager-base-0.7.3.jar
+    │   ├── tsdn-plugin-manager-base-0.7.3.jar
+    │   └── tsdn-plugin-manager-base-0.8.0.jar
     ├── pom.xml
     └── src
-        └── main
-            └── java
-                └── lgup
-                    └── tsdn
-                        └── plugin
-                            └── sample
-                                ├── datagen
-                                │   ├── CreatePWsDataGenerator.java
-                                │   ├── CreateTunnelsDataGenerator.java
-                                │   ├── ResponsePWDataGenerator.java
-                                │   └── ResponseTunnelDataGenerator.java
-                                ├── PluginActivator.java
-                                └── TsdnRPCImpl.java
+        └── main
+            └── java
+                └── lgup
+                    └── tsdn
+                        └── plugin
+                            └── sample
+                                ├── datagen
+                                │   ├── CreatePWsDataGenerator.java
+                                │   ├── CreateTunnelsDataGenerator.java
+                                │   ├── ResponsePWDataGenerator.java
+                                │   └── ResponseTunnelDataGenerator.java
+                                ├── PluginActivator.java
+                                └── TsdnRPCImpl.java
 
-30 directories, 110 files
-tsdn:/tmp/SDK$
+39 directories, 136 files
+tsdn:~/workspace/CSU/SDK_0_8_0$ 
 
 ```
 - [Customize]
-### 1. Remove old version
+### 1. Rename from tsdn_plugin_sample to tsdn_plugin_coweaver
 ```
-tsdn:/tmp/SDK$cd tsdn_plugin_sample/
-tsdn:/tmp/SDK/tsdn_plugin_sample$tree
-.
-├── manger4ventor
-│   ├── lgup.plugin.manager.cfg.sample
-│   ├── tsdn-plugin-manager4vendor-0.7.0.jar # --> remove
-│   ├── tsdn-plugin-manager4vendor-0.7.1.jar # --> remove
-│   ├── tsdn-plugin-manager4vendor-0.7.2.jar # --> remove
-│   ├── tsdn-plugin-manager4vendor-0.7.3.jar
-│   ├── tsdn-plugin-manager-base-0.7.0.jar   # --> remove
-│   ├── tsdn-plugin-manager-base-0.7.1.jar   # --> remove
-│   ├── tsdn-plugin-manager-base-0.7.2.jar   # --> remove
-│   └── tsdn-plugin-manager-base-0.7.3.jar
-├── pom.xml
-└── src
-    └── main
-        └── java
-            └── lgup
-                └── tsdn
-                    └── plugin
-                        └── sample
-                            ├── datagen
-                            │   ├── CreatePWsDataGenerator.java       ## example 
-                            │   ├── CreateTunnelsDataGenerator.java   ## example 
-                            │   ├── ResponsePWDataGenerator.java      ## example 
-                            │   └── ResponseTunnelDataGenerator.java  ## example 
-                            ├── PluginActivator.java
-                            └── TsdnRPCImpl.java
-
-9 directories, 16 files
-tsdn:/tmp/SDK/tsdn_plugin_sample$
-```
-### 2. Check essential file.
-##### 2.1. lgup.plugin.manager.cfg.sample : config file
-##### 2.2. tsdn-plugin-manager4vendor-0.7.3.jar : generated stuff to interface with vendor (google API)
-##### 2.3. tsdn-plugin-manager-base-0.7.3.jar   : generated stuff from YANG model        
-##### 2.4. PluginActivator.java                 : default caller
-##### 2.5. TsdnRPCImpl.java                     : main interface
-
-```
-tsdn:/tmp/SDK/tsdn_plugin_sample$tree
+tsdn:~/workspace/CSU/SDK_0_8_0$mv tsdn_plugin_sample/ tsdn_plugin_coweaver/
+tsdn:~/workspace/CSU/SDK_0_8_0$tree
 .
 ├── manger4ventor
 │   ├── lgup.plugin.manager.cfg.sample                 # 1. config file
