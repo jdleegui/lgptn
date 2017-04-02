@@ -1,3 +1,5 @@
+#debug
+```
 jdlee@LeeJD:~$ vim debug.txt 
 jdlee@LeeJD:~$ cat debug.txt 
 
@@ -225,3 +227,4 @@ lgup:request-info 7412_1 device 1.1.65.116
 lgup:discovery 7412_1 tunnels
 
 lgup:discovery 7412_1 pws
+```
