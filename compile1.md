@@ -108,3 +108,16 @@ tail -F ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/data/log/karaf.
 cp /home/jdlee/workspace/CSU/SDK_0_8_0/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.8.0.jar /home/jdlee/Documents/JAR/tsdn-plugin-coweaver-0.8.0.170330_01_remake.jar
 scp /home/jdlee/workspace/CSU/SDK_0_8_0/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.8.0.jar lguplus@tsdn:/home/lguplus/Applications/distribution-karaf-0.4.4-Beryllium-SR4/deploy/
 ```
+
+```
+$ mvn clean install -DskipTests -Dcheckstyle.skip=true > /tmp/error.txt
+$ scp /home/jdlee/workspace/CSU/SDK_0_8_0/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.8.0.jar lguplus@tsdn:/home/lguplus/Applications/distribution-karaf-0.4.4-Beryllium-SR4/deploy/
+
+110
+
+```
+
+$ tsdn_plugin_api$ mvn clean install -DskipTests -Dcheckstyle.skip=true > /tmp/error.txt
+
+
+```
