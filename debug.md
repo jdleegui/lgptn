@@ -237,5 +237,7 @@ lgup:change-port 7412_1 negotiation "1.1.65.141" "MAIN-P4" "On"
 lgup:change-port 7412_1 mtu-size "1.1.65.141" "MAIN-P4" "Enable"
 lgup:change-port 7412_1 active-config "1.1.65.141" "MAIN-P4" "Deactive"
 lgup:change-port 7412_1 port-config "1.1.65.141" "MAIN-P4" "On"
-
+lgup:send2plugin 7412 "check pw"
+lgup:send2plugin 7412 "pwalm.16407"
+lgup:send2plugin 7412 "tnlalm.16407"
 ```
