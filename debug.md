@@ -225,6 +225,17 @@ lgup:request-info 7412_1 device 1.1.65.113
 lgup:request-info 7412_1 device 1.1.65.116
 
 lgup:discovery 7412_1 tunnels
-
 lgup:discovery 7412_1 pws
+lgup:change-port 7412_1 descr "1.1.65.141" "MAIN-P1" "JeongHyunWook's new world in coweaver." 
+lgup:change-port 7412_1 type "1.1.65.141" "MAIN-P2" "Ge"
+lgup:change-port 7412_1 type "1.1.65.141" "MAIN-P2" "100m" 
+lgup:change-port 7412_1 role "1.1.65.141" "MAIN-P4" "Uni"
+lgup:change-port 7412_1 role "1.1.65.141" "MAIN-P4" "None"
+lgup:change-port 7412_1 role "1.1.65.141" "MAIN-P4" "Enni"
+lgup:change-port 7412_1 duplex "1.1.65.151" "MAIN-P4" "Half"
+lgup:change-port 7412_1 negotiation "1.1.65.141" "MAIN-P4" "On"
+lgup:change-port 7412_1 mtu-size "1.1.65.141" "MAIN-P4" "Enable"
+lgup:change-port 7412_1 active-config "1.1.65.141" "MAIN-P4" "Deactive"
+lgup:change-port 7412_1 port-config "1.1.65.141" "MAIN-P4" "On"
+
 ```
