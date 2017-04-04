@@ -240,4 +240,7 @@ lgup:change-port 7412_1 port-config "1.1.65.141" "MAIN-P4" "On"
 lgup:send2plugin 7412 "check pw"
 lgup:send2plugin 7412 "pwalm.16407"
 lgup:send2plugin 7412 "tnlalm.16407"
+
+cp /Users/jdleegui/Documents/workspace/CSU/SDK_0_8_0/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.8.0.jar /Users/jdleegui/Documents/JAR/tsdn-plugin-coweaver-0.8.0.170404_01_test_alarm_using_sendmessage.jar
+
 ```
