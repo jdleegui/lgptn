@@ -243,4 +243,46 @@ lgup:send2plugin 7412 "tnlalm.16407"
 
 cp /Users/jdleegui/Documents/workspace/CSU/SDK_0_8_0/tsdn_plugin_coweaver/target/tsdn-plugin-coweaver-0.8.0.jar /Users/jdleegui/Documents/JAR/tsdn-plugin-coweaver-0.8.0.170404_01_test_alarm_using_sendmessage.jar
 
+r2591 | jdlee | 2017-04-06 11:33:34 +0900 (Thu, 06 Apr 2017) | 38 lines
+
+tsdn-plugin-coweaver-0.8.0.170406_01_report_none_port_when_devce_discovery.jar
+1. Supporting change port description.
+ : lgup:change-port 7412_1 descr "1.1.65.141" "MAIN-P1" "JeongHyunWook's new world in coweaver." 
+2. Supporting change port type.  
+ : lgup:change-port 7412_1 type "1.1.65.141" "MAIN-P2" "Ge"
+ : lgup:change-port 7412_1 type "1.1.65.141" "MAIN-P2" "100m" 
+3. Supproting change port role
+ : lgup:change-port 7412_1 role "1.1.65.141" "MAIN-P4" "Uni"
+ : lgup:change-port 7412_1 role "1.1.65.141" "MAIN-P4" "None"
+ : lgup:change-port 7412_1 role "1.1.65.141" "MAIN-P4" "Enni"
+4. Supporting change port duplex
+ : lgup:change-port 7412_1 duplex "1.1.65.151" "MAIN-P4" "Half"
+5. Supporting change port negotiation                                                                                                   
+ : lgup:change-port 7412_1 negotiation "1.1.65.141" "MAIN-P4" "On"
+6. Supporting change port mtu-size
+ : lgup:change-port 7412_1 mtu-size "1.1.65.141" "MAIN-P4" "Enable"
+7. Supporting change port active-config
+ : lgup:change-port 7412_1 active-config "1.1.65.141" "MAIN-P4" "Deactive"
+8. Supporting change port config
+ : lgup:change-port 7412_1 port-config "1.1.65.141" "MAIN-P4" "On"
+9. Test to check PW alarm
+ : lgup:send2plugin 7412 "tnlalm.16407"
+A. Test to check tunnnel alarm
+ : lgup:send2plugin 7412 "tnlalm.tp_AG121_AC132_TESTT"
+B: Test if message send to plugin
+ : lgup:send2plugin 7412 "check pw"
+C: LOG file
+ :lgup:send2plugin 7412 "list device"              -> /tmp/log_coweaver_dev.txt
+ :lgup:send2plugin 7412 "list tunnels"             -> /tmp/log_coweaver_dev.txt
+ :lgup:send2plugin 7412 "list pws"                 -> /tmp/log_coweaver_dev.txt
+ :lgup:send2plugin 7412 "list alm"                 -> /tmp/log_coweaver_dev.txt
+ :lgup:send2plugin 7412 "pwalm.2019"               -> check pw alarm
+ :lgup:send2plugin 7412 "tnlalm.tp_ABCD_EFGH_2019" -> check tunnel alarm
+ :lgup:send2plugin 7412 "get alm"                  -> Just query current alarm
+
+The related changes have same comment like this '// 0.8.0 JeongHyunWook (vktod25@gmail.com) example'
+
+
+------------------------------------------------------------------------
+
 ```
