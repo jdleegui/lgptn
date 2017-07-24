@@ -50,3 +50,27 @@ mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -Darchetyp
 ## 2. Something changed slightly but huge, big effect when you compile your old project :(=
 
 - Library changed everyday 
+
+## Run eclipse
+```
+jdlee@LeeJD:~$ cd workspace/ 
+./eclipse/java-neon3/eclipse/eclipse -data /home/jdlee/workspace/CSU &
+```
+## Run Karaf
+```
+jdlee@LeeJD:~/workspace$ ./distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/bin/karaf
+```
+## Compile
+```
+jdlee@LeeJD:~/workspace$ .mvn clean install -DskipTests -Dcheckstyle.skip=true > /tmp/error.txt && \
+cp target/tsdn-plugin-coweaver-0.8.0.jar ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/deploy/tsdn-plugin-coweaver-0.8.0.jar && \
+tail -F /tmp/^Cg_coweaver.txt
+```
+## View Karaf LOG
+```
+jdlee@LeeJD:~$ tail -F ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/data/log/karaf.log
+```
+## View compile log
+```
+jdlee@LeeJD:~$ tail -F /tmp/error.txt
+```
