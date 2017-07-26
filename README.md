@@ -54,17 +54,23 @@ jdlee@LeeJD:~$ cd workspace/
 ```
 ## Run Karaf
 ```
-jdlee@LeeJD:~/workspace$ ./distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/bin/karaf
+./workspace/distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/bin/karaf 
 ```
-## Compile
+## Compile API
 ```
-jdlee@LeeJD:~/workspace$ .mvn clean install -DskipTests -Dcheckstyle.skip=true > /tmp/error.txt && \
+cd workspace/CSU/SDK_0_8_0/tsdn_plugin_api/
+mvn clean install -DskipTests -Dcheckstyle.skip=true > /tmp/error.txt
+```
+## Compile APP
+```
+cd workspace/CSU/SDK_0_8_0/tsdn_plugin_coweaver/
+vn clean install -DskipTests -Dcheckstyle.skip=true > /tmp/error.txt && \
 cp target/tsdn-plugin-coweaver-0.8.0.jar ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/deploy/tsdn-plugin-coweaver-0.8.0.jar && \
-tail -F /tmp/^Cg_coweaver.txt
+tail -F /tmp/log_coweaver.txt 
 ```
 ## View Karaf LOG
 ```
-jdlee@LeeJD:~$ tail -F ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/data/log/karaf.log
+tail -F ~/workspace/distribution-karaf-0.4.4-Beryllium-SR4.0.8.0/data/log/karaf.log
 ```
 ## View compile log
 ```
