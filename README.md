@@ -47,14 +47,10 @@ mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -Darchetyp
 -DarchetypeCatalog=https://nexus.opendaylight.org/content/repositories/public/archetype-catalog.xml
 ```
 
-## 2. Something changed slightly but huge, big effect when you compile your old project :(=
-
-- Library changed everyday 
-
 ## Run eclipse
 ```
 jdlee@LeeJD:~$ cd workspace/ 
-./eclipse/java-neon3/eclipse/eclipse -data /home/jdlee/workspace/CSU &
+./eclipse/java-neon4/eclipse/eclipse -data /home/jdlee/workspace/CSU & ## eclipse oxygeon installed but still it's neon
 ```
 ## Run Karaf
 ```
