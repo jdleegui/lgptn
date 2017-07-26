@@ -50,7 +50,7 @@ mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -Darchetyp
 ## Run eclipse
 ```
 jdlee@LeeJD:~$ cd workspace/ 
-./eclipse/java-neon4/eclipse/eclipse -data /home/jdlee/workspace/CSU & ## eclipse oxygeon installed but still it's neon
+./eclipse/java-neon4/eclipse/eclipse -data /home/jdlee/workspace/CSU & ## eclipse oxygen installed but still it's neon
 ```
 ## Run Karaf
 ```
