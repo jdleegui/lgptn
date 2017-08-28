@@ -282,7 +282,13 @@ C: LOG file
 
 The related changes have same comment like this '// 0.8.0 JeongHyunWook (vktod25@gmail.com) example'
 
-
 ------------------------------------------------------------------------
+```
+#Change MAC address, LSR address
+```
+192.168.155.225#conig terminal
+192.168.155.225(config)#system lsr-address 1.1.5.225
+192.168.155.221(config)#system ems add-user name 192.168.155.168 ip 192.168.166.168
+192.168.155.221(config)#system mac-address 0009.4C.A8.9B.DD
 
 ```
