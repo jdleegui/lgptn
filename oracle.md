@@ -1,4 +1,8 @@
-# Edit oracle boot script
+# Install Oracle 
+```
+http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html
+```
+## 1.Edit oracle boot script
 ```
 sudo vim /etc/sysctl.d/60-oracle.conf
 
@@ -17,4 +21,22 @@ net.core.rmem_default		= 4194304
 net.core.rmem_max		= 4194304
 net.core.wmem_default		= 262144
 net.core.wmem_max		= 1048586
+```
+## 2. oracle user setup
+```
+sudo vim /etc/security/limits.d/oracle.conf
+```
+#### Oracle User Settings 4 Oracle 11g ####
+```
+oracle       soft  nproc  2047
+oracle       hard  nproc  16384
+
+oracle       soft  nofile 1024
+oracle       hard  nofile 65536
+
+oracle       soft  stack  10240
+```
+## 3. Run script
+```
+sudo sysctl -p /etc/sysctl.d/60-oracle.conf
 ```
